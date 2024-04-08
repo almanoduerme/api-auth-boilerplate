@@ -11,8 +11,8 @@ class RoutesConfig {
   }
 
   private configureRoutes() {
-    this.router.use("/products", productRouter);
     this.router.use("/users", userRouter);
+    this.router.use("/products", productRouter);
   }
 }
 

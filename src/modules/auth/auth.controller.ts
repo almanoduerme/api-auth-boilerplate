@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { UserService } from "./auth.services";
 import jwt from "jsonwebtoken";
+import { IUserController } from "./auth.interfaces";
 
-class UserController {
+class UserController implements IUserController {
   async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body;

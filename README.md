@@ -12,6 +12,9 @@ This is a boilerplate for a backend application utilizing Node.js, Express, Type
 - **MongoDB**: A NoSQL database for modern application development.
 - **Dotenv**: Loads environment variables from a .env file into process.env.
 - **TS Node Dev**: Compiles your TypeScript code and restarts the server on changes.
+- **Bcryptjs**: Library to help you hash passwords.
+- **Jsonwebtoken**: JSON Web Token implementation for Node.js.
+- **MsSQL**: Microsoft SQL Server client for Node.js.
 
 ## Getting Started
 
@@ -24,6 +27,9 @@ This is a boilerplate for a backend application utilizing Node.js, Express, Type
 - Express
 - Jsonwebtoken
 - Mongoose
+- Ts-node-dev
+- Typescript
+- MsSQL
 
 ### Installation
 
@@ -51,10 +57,14 @@ PORT=3000
 MONGO_DATABASE_URL=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
 
 # Secret key for JWT
-JWT_SECRET=secret
-```
+JWT_SECRET=your_secret_key
 
-Replace `your-database` with the name of your MongoDB database and `your-password` with your MongoDB password.
+# SQL Database connection string
+SQL_USER='your_username'
+SQL_PASSWORD='your_password'
+SQL_SERVER='your_server'
+SQL_DATABASE='your_database'
+```
 
 ### Usage
 

@@ -1,9 +1,10 @@
-import express from "express";
+import express, { Application } from "express";
 import { connectMongoDB } from "./databases/mongodb/mongo.config";
 import { NotFoundHandler, RoutesConfig } from "./routes";
+import { Request, Response, NextFunction } from "express";
 
 class Server {
-  public app: express.Application;
+  public app: Application;
   public port: number;
 
   constructor(port: number) {
@@ -11,16 +12,16 @@ class Server {
     this.port = port;
   }
 
-  private middlewares() {
+  private initializeMiddlewares(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
   }
 
-  private databases() {
+  private initializeDatabases(): void {
     connectMongoDB();
   }
 
-  private setupRoutes() {
+  private initializeRoutes(): void {
     const routesConfig = new RoutesConfig();
     const notFoundHandler = new NotFoundHandler();
 
@@ -28,17 +29,26 @@ class Server {
     this.app.use(notFoundHandler.router);
   }
 
-  private listen() {
+  private initializeErrorHandling(): void {
+    this.app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+        console.error(err.stack);
+        res.status(500).send("Something broke!");
+      }
+    );
+  }
+
+  private startListening(): void {
     this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
     });
   }
 
-  public start() {
-    this.middlewares();
-    this.databases();
-    this.setupRoutes();
-    this.listen();
+  public start(): void {
+    this.initializeMiddlewares();
+    this.initializeDatabases();
+    this.initializeRoutes();
+    this.initializeErrorHandling();
+    this.startListening();
   }
 }
 
